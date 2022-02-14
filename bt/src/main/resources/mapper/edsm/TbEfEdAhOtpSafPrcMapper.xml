@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nb.edop.edsm.dao.TbEfEdAhOtpSafPrcMapperDao"> <!-- Dao 명 -->
+
+	<!-- 수행할 쿼리 select / insert / update / delete -->
+	<!-- id : Dao에서 SQL에 해당하는 메소드 명
+	     resultType : 쿼리 수행결과를 리턴하고자하는 대상 (ex) Integer, String, Object)
+	     parameterType : 쿼리에 전달하고자 하는 파라미터 (ex) Integer, String, Object)
+	-->
+	
+	<!-- 인증_OTP_SAF처리내역_단건등록 -->
+    <insert id="tbEfEdAhOtpSafPrcPi001" parameterType="com.nb.edop.edsm.dao.TbEfEdAhOtpSafPrcMapperDao">
+        INSERT /*+ tb_ef_ed_ah_otp_saf_prc_pi001 */
+		INTO TB_EF_ED_AH_OTP_SAF_PRC
+		(
+			RG_DT                 		/* 등록일자 */
+			, EBNK_TGRM_AMNNO     		/* E뱅킹전문관리번호 */
+			, RGTM                		/* 등록시각 */
+			, OTP_COMP_DSC        		/* OTP업체구분코드 */
+			, OTP_TMS_DSC         		/* OTP전송구분코드 */
+			, TGRM_LEN            		/* 전문길이 */
+			, TGRM_CNTN           		/* 전문내용 */
+			, TMS_STSC            		/* 전송상태코드 */
+			, PRC_DT              		/* 처리일자 */
+			, PRCTM               		/* 처리시각 */
+			, OTP_TGRM_PRCRZT_CNTN		/* OTP전문처리결과내용 */
+			, REPRC_NT            		/* 재처리횟수 */
+			, LSCHG_DTM           		/* 최종변경일시 */
+			, LSCHG_PGMNM         		/* 최종변경프로그램명 */
+		)
+		VALUES
+		(
+			#{rgDt}
+			, #{ebnkTgrmAmnno}
+			, #{rgtm}
+			, #{otpCompDsc}
+			, #{otpTmsDsc}
+			, #{tgrmLen}
+			, #{tgrmCntn}
+			, #{tmsStsc}
+			, #{prcDt}
+			, #{prctm}
+			, #{otpTgrmPrcrztCntn}
+			, #{reprcNt}
+			, SYSDATE
+			, #{lschgPgmnm}
+		)
+		        
+    </insert>
+</mapper>	

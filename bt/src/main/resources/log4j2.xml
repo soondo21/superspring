@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info" monitorInterval="30">
+    <Properties>
+        <Property name="LOG_FORMAT">%d{yyyy-MM-dd HH:mm:ss,SSS} %p [GUID:%X{trace.guid}] [%C:%line] %m%n</Property>
+        <Property name="BASE_DIR">./agent/logs</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_FORMAT}"/>
+        </Console>
+        <RollingFile name="File"
+                     fileName="${BASE_DIR}/agent.log"
+                     filePattern="${BASE_DIR}/agent.%d{yyyyMMdd}.log">
+            <PatternLayout pattern="${LOG_FORMAT}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="${BASE_DIR}">
+                    <IfFileName glob="*.log" />
+                    <IfLastModified age="30d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+        <RollingFile name="FwFile"
+                     fileName="${BASE_DIR}/Fw.log"
+                     filePattern="${BASE_DIR}/Fw.%d{yyyyMMdd}.log">
+            <PatternLayout pattern="${LOG_FORMAT}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="${BASE_DIR}">
+                    <IfFileName glob="*.log" />
+                    <IfLastModified age="30d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File" />
+        </Root>
+        <logger name="org.springframework" level="info" additivity="false">
+        	<AppenderRef ref="Console"/>
+            <AppenderRef ref="FwFile" />
+        </logger>
+        <logger name="com.example.demo" level="info" additivity="false">
+        	<AppenderRef ref="Console"/>
+            <AppenderRef ref="File" />
+        </logger>
+    </Loggers>
+</Configuration>

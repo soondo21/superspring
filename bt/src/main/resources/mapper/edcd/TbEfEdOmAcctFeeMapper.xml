@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nb.edop.edcd.dao.TbEfEdOmAcctFeeMapperDao"> <!-- TB_EF_ED_OM_ACCT_FEE AP업무공통_공인인증수수료기본 Dao 명 -->
+
+	<!-- 수행할 쿼리 select / insert / update / delete -->
+	<!-- id : Dao에서 SQL에 해당하는 메소드 명
+	     resultType : 쿼리 수행결과를 리턴하고자하는 대상 (ex) Integer, String, Object)
+	     parameterType : 쿼리에 전달하고자 하는 파라미터 (ex) Integer, String, Object)
+	-->
+   	<!-- 
+		AP업무공통_공인인증수수료기본 공인인증수수료기본_다건조회
+			TB_EF_ED_OM_ACCT_FEE
+	 -->
+    <select id="tbEfEdOmAcctFeePs" parameterType="hashmap" resultType="map">
+		SELECT /*+ tb_ef_ed_om_acct_fee_ps006 */
+			E_FNC_USRID e_fnc_usrid                    		/* E금융이용자ID */
+			, ATOA_UG_DSC atoa_ug_dsc                  		/* 인증서사용구분코드 */
+			, INET_BNK_UG_CUS_DSC inet_bnk_ug_cus_dsc  		/* 인터넷뱅킹사용고객구분코드 */
+			, E_FNC_COPR_ID e_fnc_copr_id              		/* E금융기업ID */
+			, CTFC_ISU_FEE ctfc_isu_fee                		/* 공인인증서발급수수료 */
+			, FEE_VAT fee_vat                          		/* 수수료부가세 */
+			, FEE_DRW_DT fee_drw_dt                    		/* 수수료출금일자 */
+			, FEE_DRW_TM fee_drw_tm                    		/* 수수료출금시각 */
+			, FEE_DRW_ACNO fee_drw_acno                		/* 수수료출금계좌번호 */
+			, FEE_RFDM_ACNO fee_rfdm_acno              		/* 수수료환불계좌번호 */
+			, OFRC_ATTC_XFEE_YN ofrc_attc_xfee_yn      		/* 공인인증수수료면제여부 */
+			, CTFC_XFEE_DT ctfc_xfee_dt                		/* 공인인증서수수료면제일자 */
+			, CTFC_ISU_DT ctfc_isu_dt                  		/* 공인인증서발급일자 */
+			, CTFC_ISU_TM ctfc_isu_tm                  		/* 공인인증서발급시각 */
+			, ATOA_LS_ISU_DT atoa_ls_isu_dt            		/* 인증서최종발급일자 */
+			, ATOA_LS_ISU_TM atoa_ls_isu_tm            		/* 인증서최종발급시각 */
+			, ATOA_VLD_PRD_DUE_DT atoa_vld_prd_due_dt  		/* 인증서유효기간만기일자 */
+			, ATOA_DLV_QCN atoa_dlv_qcn                		/* 인증서교부차수 */
+			, ATOA_REISU_DT atoa_reisu_dt              		/* 인증서재발급일자 */
+			, ATOA_UPDT_DT atoa_updt_dt                		/* 인증서갱신일자 */
+			, ATOA_OTOR_RG_DT atoa_otor_rg_dt          		/* 인증서타기관등록일자 */
+			, ATOA_DUS_DT atoa_dus_dt                  		/* 인증서폐기일자 */
+			, FEE_FIR_RFDM_DT fee_fir_rfdm_dt          		/* 수수료최초환불일자 */
+			, FEE_LS_RFDM_DT fee_ls_rfdm_dt            		/* 수수료최종환불일자 */
+			, FEE_RFDM_NT fee_rfdm_nt                  		/* 수수료환불횟수 */
+			, FEE_RFDM_TOT_NT fee_rfdm_tot_nt          		/* 수수료환불총횟수 */
+			, RG_BRC rg_brc                            		/* 등록사무소코드 */
+			, RG_TRMNO rg_trmno                        		/* 등록단말기번호 */
+			, RG_OPID_CDNO rg_opid_cdno                		/* 등록조작자ID카드번호 */
+			, CTFC_FEE_PRC_STSC ctfc_fee_prc_stsc      		/* 공인인증서수수료처리상태코드 */
+			, CTFC_FEE_DRW_STSC ctfc_fee_drw_stsc      		/* 공인인증서수수료출금상태코드 */
+			, FEE_RFDM_PSB_YN fee_rfdm_psb_yn          		/* 수수료환불가능여부 */
+			, FEE_RFDM_PMSS_DT fee_rfdm_pmss_dt        		/* 수수료환불허용일자 */
+			, ATOA_ISU_PSB_YN atoa_isu_psb_yn          		/* 인증서발급가능여부 */
+			, ATOA_ISU_PMSS_DT atoa_isu_pmss_dt        		/* 인증서발급허용일자 */
+			, TXBIL_RQ_YN txbil_rq_yn                  		/* 세금계산서신청여부 */
+			, FEE_INF_CHG_WK_STSC fee_inf_chg_wk_stsc  		/* 수수료정보변경작업상태코드 */
+			, LSCHG_DT lschg_dt                        		/* 최종변경일자 */
+			, CHG_OPTR_ID chg_optr_id                  		/* 변경조작자ID */
+			, AMN_IPADR amn_ipadr                      		/* 관리자IP주소 */
+			, USRID_CLO_YN usrid_clo_yn                		/* 이용자ID해지여부 */
+			, FEE_INF_CHG_WK_RZT_C fee_inf_chg_wk_rzt_c		/* 수수료정보변경작업결과코드 */
+			, TXBIL_ISTT_ISU_YN txbil_istt_isu_yn      		/* 세금계산서즉시발급여부 */
+			, ENT_BKNG_DSC ent_bkng_dsc                		/* 가입뱅킹구분코드 */
+			, ATOA_SQNO atoa_sqno                      		/* 인증서일련번호 */
+			, RGOPER_ID rgoper_id                      		/* 등록조작자ID */
+			, RGMGR_ID rgmgr_id                        		/* 등록책임자ID */
+			, LSCHG_DTM lschg_dtm                      		/* 최종변경일시 */
+			, LSCHG_PGMNM lschg_pgmnm                  		/* 최종변경프로그램명 */
+			, E_FNC_CUSNO e_fnc_cusno                  		/* E금융고객번호 */
+			, E_FNC_USR_IPADR e_fnc_usr_ipadr          		/* E금융사용자IP주소 */
+		FROM TB_EF_ED_OM_ACCT_FEE
+		WHERE
+		<if test = "dbioId == 'ps006'">			
+			E_FNC_CUSNO = #{eFncCusno}
+			AND (USRID_CLO_YN = '0' OR USRID_CLO_YN IS NULL OR USRID_CLO_YN = ' ')
+			AND ATOA_UG_DSC IN ('5','8','1','4','A')
+			AND INET_BNK_UG_CUS_DSC = '1'
+		</if>		
+		<if test = "dbioId == 'ps008'">
+			E_FNC_CUSNO = #{eFncCusno}
+			AND ATOA_UG_DSC = #{atoaUgDsc}
+			AND (USRID_CLO_YN = '0' OR USRID_CLO_YN IS NULL OR USRID_CLO_YN = ' ')
+			AND INET_BNK_UG_CUS_DSC = '1'
+		</if>		
+		<if test = "dbioId == 'ps002'">
+			E_FNC_USRID = #{eFncUsrid}                    		/* E금융이용자ID */
+			AND ATOA_UG_DSC = #{atoaUgDsc}						/* 인증서사용구분코드 */ 
+		</if>		
+    </select>
+    
+    <update id="tbEfEdOmAcctFeePu018" parameterType="hashmap">
+	 	UPDATE /*+ tb_ef_ed_om_acct_fee_pu018 */
+			TB_EF_ED_OM_ACCT_FEE
+		SET
+			LSCHG_DTM = SYSDATE                              		/*  */
+			, LSCHG_PGMNM = 'EDCDCA07I0'                     		/* 최종변경프로그램명 */
+		<if test = "rgBrc != null and rgBrc != ''">
+			, RG_BRC = #{rgBrc}                               		/* 등록사무소코드 */
+		</if>
+			, ENT_BKNG_DSC = NVL(#{entBkngDsc}, ent_bkng_dsc)		/*  */
+			, E_FNC_USR_IPADR = #{eFncUsrIpadr}            		/* E금융사용자IP주소 */
+		WHERE
+			E_FNC_USRID = #{eFncUsrid}
+		AND ATOA_UG_DSC = #{atoaUgDsc}
+    </update>
+    
+    <update id="tbEfEdOmAcctFeePu002" parameterType="hashmap">    
+    	UPDATE /*+ tb_ef_ed_om_acct_fee_pu002 */
+			TB_EF_ED_OM_ACCT_FEE
+		SET
+			ATOA_OTOR_RG_DT = #{atoa_otor_rg_dt}            		/* 인증서타기관등록일자 */
+			, RG_BRC = #{rg_brc}                            		/* 등록사무소코드 */
+			, RG_TRMNO = #{rg_trmno}                        		/* 등록단말기번호 */
+			, RG_OPID_CDNO = #{rg_opid_cdno}                		/* 등록조작자ID카드번호 */
+			, CTFC_FEE_PRC_STSC = #{ctfc_fee_prc_stsc}      		/* 공인인증서수수료처리상태코드 */
+			, OFRC_ATTC_XFEE_YN = #{ofrc_attc_xfee_yn}      		/* 공인인증수수료면제여부 */
+			, ATOA_ISU_PSB_YN = #{atoa_isu_psb_yn}          		/* 인증서발급가능여부 */
+			, FEE_INF_CHG_WK_RZT_C = #{fee_inf_chg_wk_rzt_c}		/* 수수료정보변경작업결과코드 */
+			, ATOA_SQNO = #{atoa_sqno}                      		/* 인증서일련번호 */
+			, RGOPER_ID = #{rgoper_id}                      		/* 등록조작자ID */
+			, RGMGR_ID = #{rgmgr_id}                        		/* 등록책임자ID */
+			, USRID_CLO_YN = #{usrid_clo_yn}                		/* 이용자ID해지여부 */
+			, LSCHG_DTM = SYSDATE                         		/*  */
+			, LSCHG_PGMNM = 'EDCDCA07I0'                  			/* 최종변경프로그램명 */
+			, E_FNC_USR_IPADR = #{e_fnc_usr_ipadr}          		/* E금융사용자IP주소 */
+		WHERE
+			E_FNC_USRID = #{e_fnc_usrid}                    		/* E금융이용자ID */ 
+		AND ATOA_UG_DSC = #{atoa_ug_dsc}						/* 인증서사용구분코드 */
+	</update>
+	
+	<insert id="tbEfedOmAcctFeePi001" parameterType="hashmap">
+		INSERT /*+ tb_ef_ed_om_acct_fee_pi001  */
+		INTO TB_EF_ED_OM_ACCT_FEE
+		(
+			E_FNC_USRID           		/* E금융이용자ID */
+			, ATOA_UG_DSC         		/* 인증서사용구분코드 */
+			, INET_BNK_UG_CUS_DSC 		/* 인터넷뱅킹사용고객구분코드 */
+			, E_FNC_COPR_ID       		/* E금융기업ID */
+			, CTFC_ISU_FEE        		/* 공인인증서발급수수료 */
+			, FEE_VAT             		/* 수수료부가세 */
+			, FEE_DRW_DT          		/* 수수료출금일자 */
+			, FEE_DRW_TM          		/* 수수료출금시각 */
+			, FEE_DRW_ACNO        		/* 수수료출금계좌번호 */
+			, FEE_RFDM_ACNO       		/* 수수료환불계좌번호 */
+			, OFRC_ATTC_XFEE_YN   		/* 공인인증수수료면제여부 */
+			, CTFC_XFEE_DT        		/* 공인인증서수수료면제일자 */
+			, CTFC_ISU_DT         		/* 공인인증서발급일자 */
+			, CTFC_ISU_TM         		/* 공인인증서발급시각 */
+			, ATOA_LS_ISU_DT      		/* 인증서최종발급일자 */
+			, ATOA_LS_ISU_TM      		/* 인증서최종발급시각 */
+			, ATOA_VLD_PRD_DUE_DT 		/* 인증서유효기간만기일자 */
+			, ATOA_DLV_QCN        		/* 인증서교부차수 */
+			, ATOA_REISU_DT       		/* 인증서재발급일자 */
+			, ATOA_UPDT_DT        		/* 인증서갱신일자 */
+			, ATOA_OTOR_RG_DT     		/* 인증서타기관등록일자 */
+			, ATOA_DUS_DT         		/* 인증서폐기일자 */
+			, FEE_FIR_RFDM_DT     		/* 수수료최초환불일자 */
+			, FEE_LS_RFDM_DT      		/* 수수료최종환불일자 */
+			, FEE_RFDM_NT         		/* 수수료환불횟수 */
+			, FEE_RFDM_TOT_NT     		/* 수수료환불총횟수 */
+			, RG_BRC              		/* 등록사무소코드 */
+			, RG_TRMNO            		/* 등록단말기번호 */
+			, RG_OPID_CDNO        		/* 등록조작자ID카드번호 */
+			, CTFC_FEE_PRC_STSC   		/* 공인인증서수수료처리상태코드 */
+			, CTFC_FEE_DRW_STSC   		/* 공인인증서수수료출금상태코드 */
+			, FEE_RFDM_PSB_YN     		/* 수수료환불가능여부 */
+			, FEE_RFDM_PMSS_DT    		/* 수수료환불허용일자 */
+			, ATOA_ISU_PSB_YN     		/* 인증서발급가능여부 */
+			, ATOA_ISU_PMSS_DT    		/* 인증서발급허용일자 */
+			, TXBIL_RQ_YN         		/* 세금계산서신청여부 */
+			, FEE_INF_CHG_WK_STSC 		/* 수수료정보변경작업상태코드 */
+			, LSCHG_DT            		/* 최종변경일자 */
+			, CHG_OPTR_ID         		/* 변경조작자ID */
+			, AMN_IPADR           		/* 관리자IP주소 */
+			, USRID_CLO_YN        		/* 이용자ID해지여부 */
+			, FEE_INF_CHG_WK_RZT_C		/* 수수료정보변경작업결과코드 */
+			, TXBIL_ISTT_ISU_YN   		/* 세금계산서즉시발급여부 */
+			, ENT_BKNG_DSC        		/* 가입뱅킹구분코드 */
+			, ATOA_SQNO           		/* 인증서일련번호 */
+			, RGOPER_ID           		/* 등록조작자ID */
+			, RGMGR_ID            		/* 등록책임자ID */
+			, LSCHG_DTM           		/*  */
+			, LSCHG_PGMNM         		/* 최종변경프로그램명 */
+			, E_FNC_CUSNO         		/* E금융고객번호 */
+			, E_FNC_USR_IPADR     		/* E금융사용자IP주소 */
+		)
+		VALUES
+		(
+			#{e_fnc_usrid}
+			, #{atoa_ug_dsc}
+			, #{inet_bnk_ug_cus_dsc}                        
+			, #{e_fnc_copr_id}                        
+			, #{ctfc_isu_fee}                        
+			, #{fee_vat}                        
+			, #{fee_drw_dt}                        
+			, #{fee_drw_tm}                        
+			, #{fee_drw_acno}                        
+			, #{fee_rfdm_acno}                        
+			, #{ofrc_attc_xfee_yn}                        
+			, #{ctfc_xfee_dt}                        
+			, #{ctfc_isu_dt}                        
+			, #{ctfc_isu_tm}                        
+			, #{atoa_ls_isu_dt}                        
+			, #{atoa_ls_isu_tm}                        
+			, #{atoa_vld_prd_due_dt}                        
+			, #{atoa_dlv_qcn}                        
+			, #{atoa_reisu_dt}                        
+			, #{atoa_updt_dt}                        
+			, #{atoa_otor_rg_dt}                        
+			, #{atoa_dus_dt}                        
+			, #{fee_fir_rfdm_dt}                        
+			, #{fee_ls_rfdm_dt}                        
+			, #{fee_rfdm_nt}                        
+			, #{fee_rfdm_tot_nt}                        
+			, #{rg_brc}                        
+			, #{rg_trmno}                        
+			, #{rg_opid_cdno}                        
+			, #{ctfc_fee_prc_stsc}                        
+			, #{ctfc_fee_drw_stsc}                        
+			, #{fee_rfdm_psb_yn}                        
+			, #{fee_rfdm_pmss_dt}                        
+			, #{atoa_isu_psb_yn}                        
+			, #{atoa_isu_pmss_dt}                        
+			, #{txbil_rq_yn}                        
+			, #{fee_inf_chg_wk_stsc}                        
+			, #{lschg_dt}                        
+			, #{chg_optr_id}                        
+			, #{amn_ipadr}                        
+			, #{usrid_clo_yn}                        
+			, #{fee_inf_chg_wk_rzt_}                        
+			, #{txbil_istt_isu_yn}                        
+			, #{ent_bkng_dsc}                        
+			, #{atoa_sqno}                        
+			, #{rgoper_id}                        
+			, #{rgmgr_id}                        
+			, SYSDATE                        
+			, 'EDCDCA07I0'                       
+			, #{e_fnc_cusno}                        
+			, #{e_fnc_usr_ipadr}                        
+		)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+	</insert>
+	
+	<delete id="tbEfedOmAcctFeePd001" parameterType="hashmap">
+		DELETE /*+ tb_ef_ed_om_acct_fee_pd001 */
+		FROM TB_EF_ED_OM_ACCT_FEE
+		WHERE
+			E_FNC_USRID = #{e_fnc_usrid} 
+		AND ATOA_UG_DSC = #{atoa_ug_dsc} 
+			
+	</delete>
+</mapper>	

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nb.edop.edcm.dao.EDCMMapperDao"> <!-- 공통BT_공통 Dao 명 -->
+
+	<!-- 수행할 쿼리 select / insert / update / delete -->
+	<!-- id : Dao에서 SQL에 해당하는 메소드 명
+	     resultType : 쿼리 수행결과를 리턴하고자하는 대상 (ex) Integer, String, Object)
+	     parameterType : 쿼리에 전달하고자 하는 파라미터 (ex) Integer, String, Object)
+	-->
+	
+   	<!-- 
+		OTP_전문일련번호채번
+	 -->
+    <select id="dualPs001" resultType="string">
+	    SELECT /*+ dual_ps001 */
+			TO_CHAR(EFED.SQ_EF_ED_AH_OTP_ATTC_TGM.NEXTVAL, 'FM00000009') IO_OP_TGRM_SQNO		/* OTP_전문일련번호 */
+		FROM DUAL
+    </select>
+    
+   	<!-- 
+		이체전문번호 채번(9자리)
+	 -->
+    <select id="dualVs006" resultType="string">
+	    SELECT /*+map_id(dual_vs006)*/ 
+			LTRIM(TO_CHAR(EFED.SQ_EF_ED_TH_ISTT_FTR.NEXTVAL, '000000000')) AS EBNK_FTR_TGRM_NO	/* 이체전문번호 9자리 */
+		FROM DUAL
+    </select>
+</mapper>	

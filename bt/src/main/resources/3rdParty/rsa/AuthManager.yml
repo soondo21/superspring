@@ -1,0 +1,13 @@
+#
+#	AuthManager 실행파일에서 사용하는 Config 값
+#
+
+server_port: 19191
+pre_prok_cnt: 5
+server_pid_file: AuthManager.pid
+server_ip_list: ServerAddrInfoList.conf
+log_dir: /aplog/efea/day
+log_name: RSA_AUTH
+# RSA 인증서버가 구동하고 있는 서버 
+rsaserver1: 16.24.116.202
+rsaserver2: 8.1.1.156

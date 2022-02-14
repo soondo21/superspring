@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nb.edop.sample.batch.dao.BatchMapperDao"> <!-- Dao 명 -->
+
+	<!-- 수행할 쿼리 select / insert / update / delete -->
+	<!-- id : Dao에서 SQL에 해당하는 메소드 명
+	     resultType : 쿼리 수행결과를 리턴하고자하는 대상 (ex) Integer, String, Object)
+	     parameterType : 쿼리에 전달하고자 하는 파라미터 (ex) Integer, String, Object)
+	-->	
+    <delete id="deleteRsaOtp" parameterType="hashmap">
+        DELETE FROM TB_EF_ED_AM_RSA_OTP WHERE OTP_CD_SQNO = #{OtpCdSqno}
+    </delete>
+    
+    <insert id="insertRsaOtp" parameterType="hashmap">
+        INSERT INTO TB_EF_ED_AM_RSA_OTP
+		(
+			OTP_CD_SQNO                 		/* 등록일자 */
+			, RSA_ATKY_CNTN     		/* E뱅킹전문관리번호 */
+			, GRN_STRT_DT                		/* 등록시각 */
+			, GRN_EXPI_DT        		/* OTP업체구분코드 */
+			, LSCHG_DTM         		/* OTP전송구분코드 */
+			, LSCHG_PGMNM            		/* 전문길이 */
+		)
+		VALUES
+		(
+			#{OtpCdSqno}
+			, #{RsaAtkyCntn}
+			, #{GrnStrtDt}
+			, #{GrnExpiDt}
+			, SYSDATE
+			, #{LschgPgmnm}
+		)
+    </insert>
+    
+    <select id="selectRsaOtp" resultType="hashmap">
+    	SELECT 
+    		OTP_CD_SQNO                 /* 등록일자 */
+			, RSA_ATKY_CNTN     		/* E뱅킹전문관리번호 */
+			, GRN_STRT_DT               /* 등록시각 */
+			, GRN_EXPI_DT        		/* OTP업체구분코드 */
+			, LSCHG_DTM         		/* OTP전송구분코드 */
+			, LSCHG_PGMNM            	/* 전문길이 */
+    	FROM TB_EF_ED_AM_RSA_OTP
+		WHERE TO_CHAR(LSCHG_DTM, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
+    </select>
+    
+    <delete id="deleteOtpCd" parameterType="hashmap">
+        DELETE FROM TB_EF_ED_AM_OTP_CD WHERE SCRT_CD_SQNO = #{OtpCdSqno}
+    </delete>
+    
+    <insert id="insertOtpCd" parameterType="hashmap">
+        INSERT INTO TB_EF_ED_AM_OTP_CD
+		(
+			SCRT_CD_SQNO                 		/* 보안카드일련번호 */
+			, STNPP_PRC_DT               		/* 서오손처리일자 */
+			, OTP_CD_STSC                		/* OTP카드상태코드 */
+			, ODR_SC_NO                  		/* 발주회차번호 */
+			, LSCHG_DTM                  		/*  */
+			, LSCHG_PGMNM                		/* 최종변경프로그램명 */
+		)
+		VALUES
+		(
+			#{OtpCdSqno}
+		    , #{GrnExpiDt}
+		    , #{OtpCdStsc}
+		    , #{OdrScNo}
+			, SYSDATE
+			, #{LschgPgmnm}
+		)
+    </insert>
+    
+    <select id="selectOtpCd" resultType="hashmap">
+    	SELECT 
+			SCRT_CD_SQNO                 		/* 보안카드일련번호 */
+			, STNPP_PRC_DT               		/* 서오손처리일자 */
+			, OTP_CD_STSC                		/* OTP카드상태코드 */
+			, ODR_SC_NO                  		/* 발주회차번호 */
+			, LSCHG_DTM                  		/*  */
+			, LSCHG_PGMNM                		/* 최종변경프로그램명 */
+    	FROM TB_EF_ED_AM_OTP_CD
+		WHERE TO_CHAR(LSCHG_DTM, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
+    </select>
+</mapper>	

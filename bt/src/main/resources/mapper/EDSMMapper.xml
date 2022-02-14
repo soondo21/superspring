@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nb.edop.edsm.dao.EDSMMapperDao"> <!-- 보안매체 (보안매체 관련 원장 및 서비스) Dao 명 -->
+
+	<!-- 수행할 쿼리 select / insert / update / delete -->
+	<!-- id : Dao에서 SQL에 해당하는 메소드 명
+	     resultType : 쿼리 수행결과를 리턴하고자하는 대상 (ex) Integer, String, Object)
+	     parameterType : 쿼리에 전달하고자 하는 파라미터 (ex) Integer, String, Object)
+	-->
+	
+</mapper>	

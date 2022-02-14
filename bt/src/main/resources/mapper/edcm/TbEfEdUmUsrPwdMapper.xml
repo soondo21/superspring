@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nb.edop.edcm.dao.TbEfEdUmUsrPwdMapperDao"> <!-- 통합이용자_이용자비밀번호기본 Dao 명 -->
+
+	<!-- 수행할 쿼리 select / insert / update / delete -->
+	<!-- id : Dao에서 SQL에 해당하는 메소드 명
+	     resultType : 쿼리 수행결과를 리턴하고자하는 대상 (ex) Integer, String, Object)
+	     parameterType : 쿼리에 전달하고자 하는 파라미터 (ex) Integer, String, Object)
+	-->
+   	<!-- 
+		이용자비밀번호기본_이용자ID로 등록상태 오류건수조회
+			TB_EF_ED_UM_USR_PWD (통합이용자_이용자비밀번호기본)
+	 -->
+    <select id="tbEfEdUmUsrPwdVs001" parameterType="string" resultType="map">
+		SELECT /*+map_id(tb_ef_ed_um_usr_pwd_vs001)*/ E_FNC_USRID
+		,      MAX(PW_CHG_DSC_104) AS PW_CHG_DSC_104
+		,      MAX(CON_ERR_NT_104) AS CON_ERR_NT_104
+		,      MAX(RG_DT_104) AS RG_DT_104
+		,      MAX(RG_BRC_104) AS RG_BRC_104
+		,      MAX(PW_CHG_DSC_105) AS PW_CHG_DSC_105
+		,      MAX(CON_ERR_NT_105) AS CON_ERR_NT_105
+		,      MAX(RG_DT_105) AS RG_DT_105
+		,      MAX(RG_BRC_105) AS RG_BRC_105
+		,      MAX(PW_CHG_DSC_108) AS PW_CHG_DSC_108
+		,      MAX(CON_ERR_NT_108) AS CON_ERR_NT_108
+		,      MAX(RG_DT_108) AS RG_DT_108
+		,      MAX(RG_BRC_108) AS RG_BRC_108
+		FROM (
+		        SELECT A.E_FNC_USRID,
+		               DECODE(A.PW_KDC, '104', PW_CHG_DSC, NULL) AS PW_CHG_DSC_104, /*보안카드*/
+		               DECODE(A.PW_KDC, '104', CON_ERR_NT, NULL) AS CON_ERR_NT_104,
+		               DECODE(A.PW_KDC, '104', RG_DT, NULL) AS RG_DT_104,
+		               DECODE(A.PW_KDC, '104', RG_BRC, NULL) AS RG_BRC_104,
+		               DECODE(A.PW_KDC, '105', PW_CHG_DSC, NULL) AS PW_CHG_DSC_105, /*OTP*/
+		               DECODE(A.PW_KDC, '105', CON_ERR_NT, NULL) AS CON_ERR_NT_105,
+		               DECODE(A.PW_KDC, '105', RG_DT, NULL) AS RG_DT_105,
+		               DECODE(A.PW_KDC, '105', RG_BRC, NULL) AS RG_BRC_105,
+		               DECODE(A.PW_KDC, '108', PW_CHG_DSC, NULL) AS PW_CHG_DSC_108, /*초기비밀번호*/
+		               DECODE(A.PW_KDC, '108', CON_ERR_NT, NULL) AS CON_ERR_NT_108,
+		               DECODE(A.PW_KDC, '108', RG_DT, NULL) AS RG_DT_108,
+		               DECODE(A.PW_KDC, '108', RG_BRC, NULL) AS RG_BRC_108,
+		               DECODE(A.PW_KDC, '108', USR_PW, NULL) AS USR_PW_108
+		        FROM   TB_EF_ED_UM_USR_PWD A
+		        WHERE  A.E_FNC_USRID = #{eFncUsrid}
+		        UNION ALL 
+		        SELECT DECODE(A.E_FNC_USRID, '1', #{eFncUsrid}, #{eFncUsrid}) AS E_FNC_USRID,
+		               DECODE(A.PW_KDC, '104', PW_CHG_DSC, NULL) AS PW_CHG_DSC_104, /*보안카드*/
+		               DECODE(A.PW_KDC, '104', CON_ERR_NT, NULL) AS CON_ERR_NT_104,
+		               DECODE(A.PW_KDC, '104', RG_DT, NULL) AS RG_DT_104,
+		               DECODE(A.PW_KDC, '104', RG_BRC, NULL) AS RG_BRC_104,
+		               DECODE(A.PW_KDC, '105', PW_CHG_DSC, NULL) AS PW_CHG_DSC_105, /*OTP*/
+		               DECODE(A.PW_KDC, '105', CON_ERR_NT, NULL) AS CON_ERR_NT_105,
+		               DECODE(A.PW_KDC, '105', RG_DT, NULL) AS RG_DT_105,
+		               DECODE(A.PW_KDC, '105', RG_BRC, NULL) AS RG_BRC_105,
+		               NULL AS PW_CHG_DSC_108, /*초기비밀번호*/
+		               NULL AS CON_ERR_NT_108,
+		               NULL AS RG_DT_108,
+		               NULL AS RG_BRC_108, 
+		               NULL AS USR_PW_108
+		        FROM   TB_EF_ED_UM_USR_PWD A
+		        WHERE  A.E_FNC_USRID = #{eFncCusno}
+		        AND    A.PW_KDC IN ('104',   '105')
+		)
+		GROUP BY E_FNC_USRID
+    </select>
+</mapper>	

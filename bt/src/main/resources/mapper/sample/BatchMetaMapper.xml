@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nb.edop.sample.batch.dao.BatchMetaMapperDao"> <!-- Dao 명 -->
+
+    <select id="selectQuartzMeta" resultType="hashmap">
+    	SELECT 
+    		*
+    	FROM QRTZ_JOB_DETAILS
+    </select>
+        
+    <select id="selectBatchMeta" resultType="hashmap">
+    	SELECT 
+			*
+    	FROM BATCH_JOB_EXECUTION
+    </select>
+</mapper>	

@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nb.edop.edsm.dao.TbEfEdAmScrtCdCusMapperDao"> <!-- 인증_보안카드고객기본 Dao 명 -->
+
+	<!-- 수행할 쿼리 select / insert / update / delete -->
+	<!-- id : Dao에서 SQL에 해당하는 메소드 명
+	     resultType : 쿼리 수행결과를 리턴하고자하는 대상 (ex) Integer, String, Object)
+	     parameterType : 쿼리에 전달하고자 하는 파라미터 (ex) Integer, String, Object)
+	-->
+	
+	<!-- 
+		보안카드 고객 및 칻기본 통합조회
+			TB_EF_ED_AM_SCRT_CD_CUS (인증_보안카드고객기본)
+			TB_EF_ED_AM_SCRT_CD     (인증_평면보안카드기본)
+			TB_EF_ED_AM_OTP_CD      (인증_OTP카드기본)
+	 -->
+    <select id="tbEfEdAmScrtCdCusVs002" parameterType="string" resultType="map">
+		SELECT SCRT_CD_CUS_USRID
+		      ,SCRT_CD_USRID
+		      ,SCRT_CD_SQNO
+		      ,SCRT_CD_DSC
+		      ,REISU_NT
+		      ,LOS_RG_YN
+		      ,E_FNC_COPR_ID
+		      ,OTP_CD_KEY_NO
+		      ,SCRT_CD_QST_NO
+		      ,SCRT_CD_QST_DTM
+		      ,LSCHG_DTM
+		      ,LSCHG_PGMNM
+		      ,SCRT_CDISU_DSC
+		      ,ISU_DT
+		      ,ISU_TM
+		      ,ISU_BRC
+		      ,ISU_SCID
+		      ,ISU_TRMNO
+		      ,ISU_OPID_CDNO
+		      ,RG_DT
+		      ,RGTM
+		      ,RG_BRC
+		      ,RG_SCID
+		      ,RG_TRMNO
+		      ,RG_OPID_CDNO
+		      ,LOS_RPT_DT
+		      ,LOS_RPT_RG_BRC
+		      ,LOS_RPT_RG_TRMNO
+		      ,LOS_RPT_RG_OPID_CDNO
+		      ,DCRD_RLS_DT
+		      ,RLS_BRC
+		      ,DCRD_RLS_TRMNO
+		      ,DCRD_RLS_OPID_CDNO
+		      ,APL_RLS_DT
+		      ,LS_APL_RLS_BRC
+		      ,LS_APL_RLS_TRMNO
+		      ,LS_APL_RLS_OPID_CDNO
+		      ,ISU_CRC_PRC_DT
+		      ,ISU_CRC_PRC_BRC
+		      ,ISU_CRC_PRC_TRMNO
+		      ,ISU_CRC_PRC_OPID_CDNO
+		      ,STNPP_PRC_DT
+		      ,STNPP_PRC_BRC
+		      ,STNPP_PRC_TRMNO
+		      ,STNPP_PRC_OPID_CDNO
+		      ,E_FNC_CUSNO
+		      ,ISU_CNF_C
+		      ,DMG_REISU_YN
+		      ,ISU_OPTR_ID
+		      ,ISU_MGR_ID
+		      ,RGOPER_ID
+		      ,RGMGR_ID
+		      ,LOS_RGOPER_ID
+		      ,LOS_RGMGR_ID
+		      ,DCRD_RLS_OPTR_ID
+		      ,DCRD_RLS_MGR_ID
+		      ,APL_RLS_OPTR_ID
+		      ,APL_RLS_MGR_ID
+		      ,ISU_CRC_OPTR_ID
+		      ,ISU_CRC_MGR_ID
+		      ,STNPP_PRC_OPTR_ID
+		      ,STNPP_PRC_MGR_ID
+		      ,' ' AS OTP_CDISU_DSC
+		      ,' ' AS INET_BNK_UG_CUS_DSC
+		      ,' ' AS OTP_CD_STSC
+		      ,' ' AS ODR_SC_NO
+		      ,' ' AS OLDTP_OTP_DS_CNTN
+		      ,' ' AS OTP_CD_TPC
+		      ,' ' AS OTP_CD_BAD_REISU_YN
+		      ,' ' AS OTP_CD_OTOR_AUT_RG_REISU_YN
+		      ,' ' AS OTP_CDISU_FEE_DSC
+		      ,'1' AS io_ds1
+		FROM   (SELECT T1.E_FNC_USRID AS SCRT_CD_CUS_USRID
+		              ,T1.SCRT_CD_SQNO
+		              ,T1.SCRT_CD_DSC
+		              ,T1.REISU_NT
+		              ,T1.LOS_RG_YN
+		              ,T1.E_FNC_COPR_ID
+		              ,T1.OTP_CD_KEY_NO
+		              ,T1.SCRT_CD_QST_NO
+		              ,T1.SCRT_CD_QST_DTM
+		              ,T1.LSCHG_DTM
+		              ,T1.LSCHG_PGMNM
+		              ,T2.E_FNC_USRID AS SCRT_CD_USRID
+		              ,T2.SCRT_CDISU_DSC
+		              ,T2.ISU_DT
+		              ,T2.ISU_TM
+		              ,T2.ISU_BRC
+		              ,T2.ISU_SCID
+		              ,T2.ISU_TRMNO
+		              ,T2.ISU_OPID_CDNO
+		              ,T2.RG_DT
+		              ,T2.RGTM
+		              ,T2.RG_BRC
+		              ,T2.RG_SCID
+		              ,T2.RG_TRMNO
+		              ,T2.RG_OPID_CDNO
+		              ,T2.LOS_RPT_DT
+		              ,T2.LOS_RPT_RG_BRC
+		              ,T2.LOS_RPT_RG_TRMNO
+		              ,T2.LOS_RPT_RG_OPID_CDNO
+		              ,T2.DCRD_RLS_DT
+		              ,T2.RLS_BRC
+		              ,T2.DCRD_RLS_TRMNO
+		              ,T2.DCRD_RLS_OPID_CDNO
+		              ,T2.APL_RLS_DT
+		              ,T2.LS_APL_RLS_BRC
+		              ,T2.LS_APL_RLS_TRMNO
+		              ,T2.LS_APL_RLS_OPID_CDNO
+		              ,T2.ISU_CRC_PRC_DT
+		              ,T2.ISU_CRC_PRC_BRC
+		              ,T2.ISU_CRC_PRC_TRMNO
+		              ,T2.ISU_CRC_PRC_OPID_CDNO
+		              ,T2.STNPP_PRC_DT
+		              ,T2.STNPP_PRC_BRC
+		              ,T2.STNPP_PRC_TRMNO
+		              ,T2.STNPP_PRC_OPID_CDNO
+		              ,T2.E_FNC_CUSNO
+		              ,T2.ISU_CNF_C
+		              ,T2.DMG_REISU_YN
+		              ,T2.ISU_OPTR_ID
+		              ,T2.ISU_MGR_ID
+		              ,T2.RGOPER_ID
+		              ,T2.RGMGR_ID
+		              ,T2.LOS_RGOPER_ID
+		              ,T2.LOS_RGMGR_ID
+		              ,T2.DCRD_RLS_OPTR_ID
+		              ,T2.DCRD_RLS_MGR_ID
+		              ,T2.APL_RLS_OPTR_ID
+		              ,T2.APL_RLS_MGR_ID
+		              ,T2.ISU_CRC_OPTR_ID
+		              ,T2.ISU_CRC_MGR_ID
+		              ,T2.STNPP_PRC_OPTR_ID
+		              ,T2.STNPP_PRC_MGR_ID
+		        FROM   TB_EF_ED_AM_SCRT_CD_CUS T1
+		              ,TB_EF_ED_AM_SCRT_CD     T2
+		        WHERE  T1.E_FNC_USRID = #{eFncUsrid}
+		        AND    T1.SCRT_CD_SQNO = T2.SCRT_CD_SQNO)
+		UNION ALL
+		SELECT SCRT_CD_CUS_USRID
+		      ,SCRT_CD_USRID
+		      ,SCRT_CD_SQNO
+		      ,SCRT_CD_DSC
+		      ,REISU_NT
+		      ,LOS_RG_YN
+		      ,E_FNC_COPR_ID
+		      ,OTP_CD_KEY_NO
+		      ,SCRT_CD_QST_NO
+		      ,SCRT_CD_QST_DTM
+		      ,LSCHG_DTM
+		      ,LSCHG_PGMNM
+		      ,' ' AS SCRT_CDISU_DSC
+		      ,ISU_DT
+		      ,ISU_TM
+		      ,ISU_BRC
+		      ,ISU_SCID
+		      ,ISU_TRMNO
+		      ,ISU_OPID_CDNO
+		      ,RG_DT
+		      ,RGTM
+		      ,RG_BRC
+		      ,RG_SCID
+		      ,RG_TRMNO
+		      ,RG_OPID_CDNO
+		      ,LOS_RPT_DT
+		      ,LOS_RPT_RG_BRC
+		      ,LOS_RPT_RG_TRMNO
+		      ,LOS_RPT_RG_OPID_CDNO
+		      ,DCRD_RLS_DT
+		      ,RLS_BRC
+		      ,DCRD_RLS_TRMNO
+		      ,DCRD_RLS_OPID_CDNO
+		      ,APL_RLS_DT
+		      ,LS_APL_RLS_BRC
+		      ,LS_APL_RLS_TRMNO
+		      ,LS_APL_RLS_OPID_CDNO
+		      ,ISU_CRC_PRC_DT
+		      ,ISU_CRC_PRC_BRC
+		      ,ISU_CRC_PRC_TRMNO
+		      ,ISU_CRC_PRC_OPID_CDNO
+		      ,STNPP_PRC_DT
+		      ,STNPP_PRC_BRC
+		      ,STNPP_PRC_TRMNO
+		      ,STNPP_PRC_OPID_CDNO
+		      ,E_FNC_CUSNO
+		      ,ISU_CNF_C
+		      ,' ' AS DMG_REISU_YN
+		      ,ISU_OPTR_ID
+		      ,ISU_MGR_ID
+		      ,RGOPER_ID
+		      ,RGMGR_ID
+		      ,LOS_RGOPER_ID
+		      ,LOS_RGMGR_ID
+		      ,DCRD_RLS_OPTR_ID
+		      ,DCRD_RLS_MGR_ID
+		      ,APL_RLS_OPTR_ID
+		      ,APL_RLS_MGR_ID
+		      ,ISU_CRC_OPTR_ID
+		      ,ISU_CRC_MGR_ID
+		      ,STNPP_PRC_OPTR_ID
+		      ,STNPP_PRC_MGR_ID
+		      ,OTP_CDISU_DSC
+		      ,INET_BNK_UG_CUS_DSC
+		      ,OTP_CD_STSC
+		      ,ODR_SC_NO
+		      ,OLDTP_OTP_DS_CNTN
+		      ,OTP_CD_TPC
+		      ,OTP_CD_BAD_REISU_YN
+		      ,OTP_CD_OTOR_AUT_RG_REISU_YN
+		      ,OTP_CDISU_FEE_DSC
+		      ,'2' AS io_ds1
+		FROM   (SELECT T1.E_FNC_USRID AS SCRT_CD_CUS_USRID
+		              ,T1.SCRT_CD_SQNO
+		              ,T1.SCRT_CD_DSC
+		              ,T1.REISU_NT
+		              ,T1.LOS_RG_YN
+		              ,T1.E_FNC_COPR_ID
+		              ,T1.OTP_CD_KEY_NO
+		              ,T1.SCRT_CD_QST_NO
+		              ,T1.SCRT_CD_QST_DTM
+		              ,T1.LSCHG_DTM
+		              ,T1.LSCHG_PGMNM
+		              ,T3.E_FNC_USRID AS SCRT_CD_USRID
+		              ,T3.OTP_CDISU_DSC
+		              ,T3.ISU_DT
+		              ,T3.ISU_TM
+		              ,T3.ISU_BRC
+		              ,T3.ISU_SCID
+		              ,T3.ISU_TRMNO
+		              ,T3.ISU_OPID_CDNO
+		              ,T3.RG_DT
+		              ,T3.RGTM
+		              ,T3.RG_BRC
+		              ,T3.RG_SCID
+		              ,T3.RG_TRMNO
+		              ,T3.RG_OPID_CDNO
+		              ,T3.LOS_RPT_DT
+		              ,T3.LOS_RPT_RG_BRC
+		              ,T3.LOS_RPT_RG_TRMNO
+		              ,T3.LOS_RPT_RG_OPID_CDNO
+		              ,T3.DCRD_RLS_DT
+		              ,T3.RLS_BRC
+		              ,T3.DCRD_RLS_TRMNO
+		              ,T3.DCRD_RLS_OPID_CDNO
+		              ,T3.APL_RLS_DT
+		              ,T3.LS_APL_RLS_BRC
+		              ,T3.LS_APL_RLS_TRMNO
+		              ,T3.LS_APL_RLS_OPID_CDNO
+		              ,T3.ISU_CRC_PRC_DT
+		              ,T3.ISU_CRC_PRC_BRC
+		              ,T3.ISU_CRC_PRC_TRMNO
+		              ,T3.ISU_CRC_PRC_OPID_CDNO
+		              ,T3.STNPP_PRC_DT
+		              ,T3.STNPP_PRC_BRC
+		              ,T3.STNPP_PRC_TRMNO
+		              ,T3.STNPP_PRC_OPID_CDNO
+		              ,T3.E_FNC_CUSNO
+		              ,T3.ISU_CNF_C
+		              ,T3.INET_BNK_UG_CUS_DSC
+		              ,T3.OTP_CD_STSC
+		              ,T3.ODR_SC_NO
+		              ,T3.OLDTP_OTP_DS_CNTN
+		              ,T3.OTP_CD_TPC
+		              ,T3.OTP_CD_BAD_REISU_YN
+		              ,T3.OTP_CD_OTOR_AUT_RG_REISU_YN
+		              ,T3.OTP_CDISU_FEE_DSC
+		              ,T3.ISU_OPTR_ID
+		              ,T3.ISU_MGR_ID
+		              ,T3.RGOPER_ID
+		              ,T3.RGMGR_ID
+		              ,T3.LOS_RGOPER_ID
+		              ,T3.LOS_RGMGR_ID
+		              ,T3.DCRD_RLS_OPTR_ID
+		              ,T3.DCRD_RLS_MGR_ID
+		              ,T3.APL_RLS_OPTR_ID
+		              ,T3.APL_RLS_MGR_ID
+		              ,T3.ISU_CRC_OPTR_ID
+		              ,T3.ISU_CRC_MGR_ID
+		              ,T3.STNPP_PRC_OPTR_ID
+		              ,T3.STNPP_PRC_MGR_ID
+		        FROM   TB_EF_ED_AM_SCRT_CD_CUS T1
+		              ,TB_EF_ED_AM_OTP_CD      T3
+		        WHERE  T1.E_FNC_USRID = #{eFncUsrid}
+		        AND    T1.SCRT_CD_SQNO = T3.SCRT_CD_SQNO)
+    </select>
+</mapper>	
