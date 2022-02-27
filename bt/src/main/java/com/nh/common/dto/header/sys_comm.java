@@ -1,13 +1,17 @@
 package com.nh.common.dto.header;
 
+import com.tmax.superspring.dto.DataObject;
+
 
 @javax.annotation.Generated(
 	value = "com.tmaxsoft.sts4.codegen.dto.DtoGenerator",
-	date= "21. 11. 8. 오전 11:16",
+	date= "22. 2. 28. 오전 8:37",
 	comments = "sys_comm"
 )
-public class sys_comm
+public class sys_comm extends DataObject
 {
+    private static final long serialVersionUID= 1L;
+    
     private String std_tgrm_len = new String();
     
     public String getStd_tgrm_len() {
@@ -1528,6 +1532,136 @@ public class sys_comm
     	} else {
     		this.svc_hdr_len = svc_hdr_len;
     	}
+    }
+    
+    public Object clone() {
+    	sys_comm copyObj = new sys_comm();
+    	copyObj.clone(this);
+    	return copyObj;
+    }
+    
+    public void clone(DataObject _sys_comm){
+    	if(this == _sys_comm)
+    		return;
+    		
+    	sys_comm __sys_comm = (sys_comm) _sys_comm;
+    	this.setStd_tgrm_len(__sys_comm.getStd_tgrm_len());
+    	this.setStd_gbl_id(__sys_comm.getStd_gbl_id());
+    	this.setRms_svc_c(__sys_comm.getRms_svc_c());
+    	this.setRzt_rms_svc_c(__sys_comm.getRzt_rms_svc_c());
+    	this.setOrgtr_gbl_id(__sys_comm.getOrgtr_gbl_id());
+    	this.setCan_crc_gbl_id(__sys_comm.getCan_crc_gbl_id());
+    	this.setTrz_gbl_id(__sys_comm.getTrz_gbl_id());
+    	this.setXa_tr_dsc(__sys_comm.getXa_tr_dsc());
+    	this.setPrto_tgrm_dtm(__sys_comm.getPrto_tgrm_dtm());
+    	this.setSync_dsc(__sys_comm.getSync_dsc());
+    	this.setAsync_attr_c(__sys_comm.getAsync_attr_c());
+    	this.setTr_sysid(__sys_comm.getTr_sysid());
+    	this.setSys_dtl_dsc(__sys_comm.getSys_dtl_dsc());
+    	this.setOrgtr_sysid(__sys_comm.getOrgtr_sysid());
+    	this.setLtgrm_sesn_dsc(__sys_comm.getLtgrm_sesn_dsc());
+    	this.setLtgrm_prc_sqno(__sys_comm.getLtgrm_prc_sqno());
+    	this.setTtl_ug_ync(__sys_comm.getTtl_ug_ync());
+    	this.setTtl_fir_sttm(__sys_comm.getTtl_fir_sttm());
+    	this.setTtl_mtn_tm(__sys_comm.getTtl_mtn_tm());
+    	this.setTgrm_prto_tpc(__sys_comm.getTgrm_prto_tpc());
+    	this.setTrms_tr_sesn_id(__sys_comm.getTrms_tr_sesn_id());
+    	this.setTrm_tpc(__sys_comm.getTrm_tpc());
+    	this.setTrm_id(__sys_comm.getTrm_id());
+    	this.setTr_id_no(__sys_comm.getTr_id_no());
+    	this.setMca_chan_svr_id(__sys_comm.getMca_chan_svr_id());
+    	this.setAut_tr_dsc(__sys_comm.getAut_tr_dsc());
+    	this.setObs_sys_c(__sys_comm.getObs_sys_c());
+    	this.setObs_kdc(__sys_comm.getObs_kdc());
+    	this.setStd_err_c(__sys_comm.getStd_err_c());
+    	this.setStd_tgrm_rqr_rsp_dsc(__sys_comm.getStd_tgrm_rqr_rsp_dsc());
+    	this.setStd_tgrm_frmt_dsc(__sys_comm.getStd_tgrm_frmt_dsc());
+    	this.setStd_tgrm_lclc(__sys_comm.getStd_tgrm_lclc());
+    	this.setStd_tgrm_sbjc(__sys_comm.getStd_tgrm_sbjc());
+    	this.setStd_tgrm_chan_c(__sys_comm.getStd_tgrm_chan_c());
+    	this.setComn_msg_id(__sys_comm.getComn_msg_id());
+    	this.setTr_trm_ipadr(__sys_comm.getTr_trm_ipadr());
+    	this.setTr_dtm(__sys_comm.getTr_dtm());
+    	this.setStd_tgrm_prcrzt_c(__sys_comm.getStd_tgrm_prcrzt_c());
+    	this.setTgrm_tionm(__sys_comm.getTgrm_tionm());
+    	this.setStd_tgrm_msg_tpc(__sys_comm.getStd_tgrm_msg_tpc());
+    	this.setStd_tgrm_comu_inf_c(__sys_comm.getStd_tgrm_comu_inf_c());
+    	this.setSnd_asqno(__sys_comm.getSnd_asqno());
+    	this.setStd_tgrm_epy_mode_c(__sys_comm.getStd_tgrm_epy_mode_c());
+    	this.setOpr_onl_brc(__sys_comm.getOpr_onl_brc());
+    	this.setTr_brc(__sys_comm.getTr_brc());
+    	this.setNaac_dsc(__sys_comm.getNaac_dsc());
+    	this.setTrmn_naac_dsc(__sys_comm.getTrmn_naac_dsc());
+    	this.setTrmno(__sys_comm.getTrmno());
+    	this.setTrm_kdc(__sys_comm.getTrm_kdc());
+    	this.setTrm_br_ino_dsc(__sys_comm.getTrm_br_ino_dsc());
+    	this.setBat_plc_c(__sys_comm.getBat_plc_c());
+    	this.setScid(__sys_comm.getScid());
+    	this.setScrn_vernm(__sys_comm.getScrn_vernm());
+    	this.setOptr_eno(__sys_comm.getOptr_eno());
+    	this.setTr_optrnm(__sys_comm.getTr_optrnm());
+    	this.setOptr_pzcc(__sys_comm.getOptr_pzcc());
+    	this.setAud_tr_inq_rsnc(__sys_comm.getAud_tr_inq_rsnc());
+    	this.setX_tr_dsc(__sys_comm.getX_tr_dsc());
+    	this.setOptr_attc_grdc(__sys_comm.getOptr_attc_grdc());
+    	this.setSc1_mgr_attc_grdc(__sys_comm.getSc1_mgr_attc_grdc());
+    	this.setSq2_mgr_attc_grdc(__sys_comm.getSq2_mgr_attc_grdc());
+    	this.setMgr_apv_c(__sys_comm.getMgr_apv_c());
+    	this.setSc1_mgr_brc(__sys_comm.getSc1_mgr_brc());
+    	this.setSc1_mgr_tk_dlv_yn(__sys_comm.getSc1_mgr_tk_dlv_yn());
+    	this.setSc1_mgr_trmno(__sys_comm.getSc1_mgr_trmno());
+    	this.setSc1_mgr_trm_ug_yn(__sys_comm.getSc1_mgr_trm_ug_yn());
+    	this.setSc1_mgr_eno(__sys_comm.getSc1_mgr_eno());
+    	this.setSc1_mgr_name(__sys_comm.getSc1_mgr_name());
+    	this.setSq2_mgr_brc(__sys_comm.getSq2_mgr_brc());
+    	this.setSq2_mgr_tk_dlv_yn(__sys_comm.getSq2_mgr_tk_dlv_yn());
+    	this.setSq2_mgr_trmno(__sys_comm.getSq2_mgr_trmno());
+    	this.setSq2_mgr_trm_ug_yn(__sys_comm.getSq2_mgr_trm_ug_yn());
+    	this.setSq2_mgr_eno(__sys_comm.getSq2_mgr_eno());
+    	this.setSq2_mgr_name(__sys_comm.getSq2_mgr_name());
+    	this.setTk_rgrls_dsc(__sys_comm.getTk_rgrls_dsc());
+    	this.setNslip_exe_yn(__sys_comm.getNslip_exe_yn());
+    	this.setInp_med_inf_c(__sys_comm.getInp_med_inf_c());
+    	this.setIccd_setg_ynchar(__sys_comm.getIccd_setg_ynchar());
+    	this.setPpad_inp_yn(__sys_comm.getPpad_inp_yn());
+    	this.setMs_inp_yn(__sys_comm.getMs_inp_yn());
+    	this.setDb_rbk_ync(__sys_comm.getDb_rbk_ync());
+    	this.setTst_phr_apl_c(__sys_comm.getTst_phr_apl_c());
+    	this.setSync_attr_c(__sys_comm.getSync_attr_c());
+    	this.setPgm_vernm(__sys_comm.getPgm_vernm());
+    	this.setTr_hop_brc(__sys_comm.getTr_hop_brc());
+    	this.setTr_hop_br_naac_dsc(__sys_comm.getTr_hop_br_naac_dsc());
+    	this.setTr_bsn_dsc(__sys_comm.getTr_bsn_dsc());
+    	this.setAccsc_inp_med_c(__sys_comm.getAccsc_inp_med_c());
+    	this.setStd_qut_tgrm_c(__sys_comm.getStd_qut_tgrm_c());
+    	this.setAx_qut_tgrm_c(__sys_comm.getAx_qut_tgrm_c());
+    	this.setBzsunt_med_c(__sys_comm.getBzsunt_med_c());
+    	this.setOpr_brc(__sys_comm.getOpr_brc());
+    	this.setAxtrm_dti_bsn_dsc(__sys_comm.getAxtrm_dti_bsn_dsc());
+    	this.setOrgtr_std_tgrm_lclc(__sys_comm.getOrgtr_std_tgrm_lclc());
+    	this.setAgnc_tr_brc(__sys_comm.getAgnc_tr_brc());
+    	this.setAgnc_tr_br_naac_dsc(__sys_comm.getAgnc_tr_br_naac_dsc());
+    	this.setExe_node_no(__sys_comm.getExe_node_no());
+    	this.setTrms_sys_dsc(__sys_comm.getTrms_sys_dsc());
+    	this.setTrms_sys_idvd_try_cntn(__sys_comm.getTrms_sys_idvd_try_cntn());
+    	this.setGse_dsc(__sys_comm.getGse_dsc());
+    	this.setGse_surc_sysid(__sys_comm.getGse_surc_sysid());
+    	this.setGse_surc_cop_ds(__sys_comm.getGse_surc_cop_ds());
+    	this.setGse_trgt_sysid(__sys_comm.getGse_trgt_sysid());
+    	this.setGse_trgt_cop_ds(__sys_comm.getGse_trgt_cop_ds());
+    	this.setGse_surc_svr_grp_no(__sys_comm.getGse_surc_svr_grp_no());
+    	this.setElt_doc_yn(__sys_comm.getElt_doc_yn());
+    	this.setDs_brc(__sys_comm.getDs_brc());
+    	this.setNatv_id_inf_incd_yn(__sys_comm.getNatv_id_inf_incd_yn());
+    	this.setBpr_idx_id(__sys_comm.getBpr_idx_id());
+    	this.setAtm_ddl_yn(__sys_comm.getAtm_ddl_yn());
+    	this.setEai_mq_msg_id(__sys_comm.getEai_mq_msg_id());
+    	this.setGse_intf_id(__sys_comm.getGse_intf_id());
+    	this.setNatv_id_inf_pwize_apl_yn(__sys_comm.getNatv_id_inf_pwize_apl_yn());
+    	this.setFst_xtn_trry_cntn(__sys_comm.getFst_xtn_trry_cntn());
+    	this.setSecn_xtn_trry_cntn(__sys_comm.getSecn_xtn_trry_cntn());
+    	this.setThrd_xtn_trry_cntn(__sys_comm.getThrd_xtn_trry_cntn());
+    	this.setSvc_hdr_len(__sys_comm.getSvc_hdr_len());
     }
 }
 

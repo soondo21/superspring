@@ -1,33 +1,31 @@
 package com.nh.common.dto.header;
 
+import com.tmax.superspring.dto.engine.base.Message;
+import com.tmax.superspring.dto.engine.exception.UnmarshalException;
+import com.tmax.superspring.dto.engine.exception.MarshalException;
+import com.tmax.superspring.dto.DataObject;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import com.google.gson.stream.JsonToken;
-
-import java.lang.IllegalArgumentException;
-import java.lang.NullPointerException;
-import java.io.UnsupportedEncodingException;
-import java.io.IOException;
-import com.google.gson.stream.MalformedJsonException;
-
-import com.nh.common.dto.header.sys_comm;
+import org.w3c.dom.Node;
 
 
 @javax.annotation.Generated(
 	value = "com.tmaxsoft.sts4.codegen.message.MessageGenerator",
-	date= "21. 11. 8. 오전 11:16",
+	date= "22. 2. 28. 오전 8:37",
 	comments = "sys_commMsgJson"
 )
-public class sys_commMsgJson
+public class sys_commMsgJson extends Message
 {
-    public byte[] marshal(sys_comm obj) throws IOException, IllegalArgumentException, NullPointerException, UnsupportedEncodingException {
+    public byte[] marshal(DataObject obj) throws MarshalException {
     	sys_comm _sys_comm = (sys_comm)obj;
     	
     	if(_sys_comm == null)
@@ -39,7 +37,7 @@ public class sys_commMsgJson
     	try{
     
     		ByteArrayOutputStream out = new ByteArrayOutputStream(); 
-    		bw = new BufferedWriter( new OutputStreamWriter( out , "UTF-8" ) );        
+    		bw = new BufferedWriter( new OutputStreamWriter( out , this.encoding ) );
     		jw = new JsonWriter( bw );
     		jw.beginObject();
     
@@ -48,18 +46,29 @@ public class sys_commMsgJson
     		jw.endObject();
     		jw.close();
     		return out.toByteArray();
-       		    	    		
-    	} finally{
-    		try {
-    			if(jw != null) jw.close();
+       	} catch(Exception e) {
+       		throw new MarshalException(e);
+       	} finally{
+       		try {
+       			if( jw != null )
+    				try {
+    					jw.close();
+    				} catch (IOException e) {
+    					throw new MarshalException(e);
+    				}
     		} finally {
-    			if(bw != null) bw.close();
+    			if( bw != null )
+    				try {
+    					bw.close();
+    				} catch (IOException e) {
+    					throw new MarshalException(e);
+    				}
     		}
     	}
     }
     
     
-    public void marshal(com.nh.common.dto.header.sys_comm _sys_comm, JsonWriter writer )throws IOException, IllegalArgumentException, NullPointerException, UnsupportedEncodingException {
+    public void marshal(com.nh.common.dto.header.sys_comm _sys_comm, JsonWriter writer )throws IOException {
     
     	writer.name("std_tgrm_len"); 
     	if (_sys_comm.getStd_tgrm_len() != null) {
@@ -780,7 +789,11 @@ public class sys_commMsgJson
     	return sb.toString();
     }
     
-    public sys_comm unmarshal(byte[] bytes, int i) throws IOException, MalformedJsonException, IllegalArgumentException, NullPointerException, UnsupportedEncodingException {
+    @Override
+    public void marshal(DataObject arg0, Node arg1) throws MarshalException {
+    }
+    
+    public sys_comm unmarshal(byte[] bytes, int i) throws UnmarshalException {
     	sys_comm _sys_comm = new sys_comm();
     	BufferedReader reader = null;
     	JsonReader jr = null;
@@ -789,7 +802,7 @@ public class sys_commMsgJson
     		return new sys_comm();
     
     	try{
-    		reader = new BufferedReader( new InputStreamReader( new ByteArrayInputStream(bytes), "UTF-8"));		       
+    		reader = new BufferedReader( new InputStreamReader( new ByteArrayInputStream(bytes), this.encoding));		       
     		jr = new JsonReader( reader );                
     		jr.beginObject();
     
@@ -798,14 +811,30 @@ public class sys_commMsgJson
     		jr.endObject();
     		jr.close();
     
+    	} catch(Exception e) {
+    	    throw new UnmarshalException(e);
     	}finally{
-    		if( jr != null ) jr.close();
-    		if( reader != null ) reader.close();
+    		try{
+    			if( jr != null )
+    				try {
+    					jr.close();
+    				} catch (IOException e) {
+    					throw new UnmarshalException(e);
+    				}
+    		} finally {
+    			if( reader != null )
+    				try {
+    					reader.close();
+    				} catch (IOException e) {
+    					throw new UnmarshalException(e);
+    				}
+    		}
     	}
     	return _sys_comm;
     }
     	
-    public sys_comm unmarshal(byte[] bytes, sys_comm dto) throws IOException, MalformedJsonException, IllegalArgumentException, NullPointerException, UnsupportedEncodingException {
+    public DataObject unmarshal(byte[] bytes, sys_comm dto) throws UnmarshalException {
+    	
     	sys_comm _sys_comm = (sys_comm) dto;
     	BufferedReader reader = null;
     	JsonReader jr = null;
@@ -814,7 +843,7 @@ public class sys_commMsgJson
     		return new sys_comm();
     	
     	try{
-    		reader = new BufferedReader( new InputStreamReader( new ByteArrayInputStream(bytes), "UTF-8"));		       
+    		reader = new BufferedReader( new InputStreamReader( new ByteArrayInputStream(bytes), this.encoding));		       
     		jr = new JsonReader( reader );                
     		jr.beginObject();
     
@@ -822,16 +851,32 @@ public class sys_commMsgJson
     
     		jr.endObject();
     		jr.close();
+    	
+    	} catch(Exception e) {
+    		throw new UnmarshalException(e);
+    	} finally {
+    		try{
+    			if( jr != null ) 
+    				try{
+    					jr.close();
+    				} catch (IOException e) {
+    					throw new UnmarshalException(e);
+    				}
+    		} finally {
+    			if( reader != null )
+    				try {
+    					reader.close();
+    				} catch (IOException e) {
+    					throw new UnmarshalException(e);
+    				}
     			
-    	}finally{
-    		if( jr != null ) jr.close();
-    		if( reader != null ) reader.close();
+    		}
     	}
     	                       
         return _sys_comm;
     }
     
-    public sys_comm unmarshal(JsonReader reader, sys_comm dto) throws IOException, MalformedJsonException, IllegalArgumentException, NullPointerException, UnsupportedEncodingException {	
+    public sys_comm unmarshal(JsonReader reader, sys_comm dto) throws IOException {	
     	
     	while( reader.hasNext() ){
     		String name = reader.nextName();			
@@ -841,7 +886,7 @@ public class sys_commMsgJson
     	return dto;
     }
     	 
-    protected void setField(sys_comm dto, JsonReader reader, String name) throws IOException, MalformedJsonException, IllegalArgumentException, NullPointerException, UnsupportedEncodingException {
+    protected void setField(sys_comm dto, JsonReader reader, String name) throws IOException {
     	
     	switch(name) {
     		case "std_tgrm_len" :
@@ -1901,6 +1946,17 @@ public class sys_commMsgJson
     		reader.skipValue();
     		break;
     	}
+    }
+    
+    @Override
+    public DataObject unmarshal(Node arg0) throws UnmarshalException {
+    		return null;
+    }
+    
+    
+    @Override
+    public int unmarshal(byte[] arg0, int arg1, DataObject arg2) throws Exception {
+    	return 0;
     }
     
 }

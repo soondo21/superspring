@@ -1,0 +1,247 @@
+# Server 포트를 지정한다.
+server:
+  port: 80021
+
+# jasypt.encryptor.bean : 프로퍼티 암복호화 Bean 설정
+# jasypt.encryptor.password : 프로퍼티 암복호화 KEY 설정 (설정 값에 따라 암복호화문이 달라지므로 변경에 유의할 것)
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+    password: efedbt
+      
+spring:
+  # Application 명을 지정한다.
+  # Application 명은 Master Solution 에서 Proect 명과 같다.
+  # 어플리케이션 부팅시 아래 Applciation name 에 해당하는 파라미터를 Master에서 가져옵니다. 
+  application:
+    name: BTApplication #EDOP
+  
+  # Spring Cloud Config 관련 설정 
+  cloud:
+    config:
+      # Spring Cloud Config Server 의 계정정보
+      label: master
+      username: admin
+      password: admin
+      
+  config:
+    # Spring Cloud Config Server URL
+    # 해당 URL은 변경될 수 있습니다.
+    # URL 입력시 반드시 http:// 로 접근합니다.
+    import:
+    - optional:configserver:http://cltsossfwservice.apps.pas.nhbank.test.nonghyup.com/SCC
+    
+  # Spring Boot Admin 관련 설정  
+  boot:
+    admin:
+      client:
+        # Spring Boot Admin URL
+        url:
+        - http://cltsossfwservice.apps.pas.nhbank.test.nonghyup.com/SBA
+        instance:
+          # service-rul 은 개발자의 요청 URL 입니다.
+          # port는 application.yml 상단에 server 포트와 일치해야 합니다.
+          service-url: http://127.0.0.1:8002
+        username: admin
+        password: admin
+      
+  # Spring Boot 에서 이미 생성한 Bean을 재정의 할 수 있는지 여부      
+  main:
+    allow-bean-definition-overriding: true
+  
+  #JPA
+  jpa:
+    show-sql: true  # DB에 날리는 모든 쿼리를 보여줌
+    properties:
+      hibernate:
+        format-sql: true        # 쿼리를 포맷에 맞춰 보여줌
+        use-sql-comments: true  # 추가적인 주석은 보여줌
+  
+#  # Spring Boot Admin 관련 설정  
+#  boot:
+#    admin:
+#      client:
+#        # Spring Boot Admin URL
+#        # 해당 URL은 변경될 수 있습니다.
+#        # URL 입력시 반드시 http:// 로 접근합니다.
+#        url:
+#        - http://cltsossfwservice.apps.pas.nhbank.test.nonghyup.com/SBA
+#        
+#        instance:
+#          # service-rul 은 개발자의 요청 URL 입니다.
+#          # port는 application.yml 상단에 server 포트와 일치해야 합니다.
+#          service-url: http://127.0.0.1:8002
+#        
+#        # 현재는 계정에 대한 권한관리가 적용되지 않습니다.
+#        # 추후 권한관리 기능이 추가되면 사용자 별로 username과 password를 입력합니다.
+#        username: admin
+#        password: admin
+  
+  # 어떤 스테이지의 파라미터를 가져올지에 대한 설정입니다.
+  # 현재 스테이지는 Default로 dev(개발), test(검증), prd(운영) 로 구분되어 있습니다.
+  # active 의 값을 dev로 설정하면 어플리케이션 부팅시 Master에서 dev 스테이지에 해당하는 파라미터를 가져옵니다.        
+  profiles:
+    active: dev 
+  
+  # Spring Boot에서는 기본적으로 JSP를 지원하지 않아 아래 mvc 설정 필요  
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+      
+  #devtools hot deploy
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: false
+      
+            
+  # H2 DabaBase 사용을 위한 설정
+#  h2:
+#    console:
+#      enabled : true
+#      path: /sample/h2
+#  datasource:
+#    url: jdbc:h2:file:./testdb;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE
+#    driver-class-name: org.h2.Driver
+#    username: sa
+#    password: 
+
+#
+#     :
+#    edop:
+#      jdbc-url:  jdbc:oracle:thin:@16.24.118.79:1521/EFEAT
+#      username: efed_app
+#      password: 'efelwlxjf1!'
+#      driver-class-name: oracle.jdbc.OracleDriver
+#    sample:
+#      url: jdbc:h2:file:./testdb;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE
+#      driver-class-name: org.h2.Driver
+#      username: sa
+#      password: 
+    
+  #oracle
+#  datasource:
+#    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+##    driver-class-name: oracle.jdbc.OracleDriver
+#    url: jdbc:log4jdbc:oracle:thin:@16.24.118.79:1521/EFEAT
+#    username: EFED_DML
+#    password: 2^zL6mM.wH
+  datasource:
+    hikari:
+      efed:
+        jdbc-url: jdbc:log4jdbc:oracle:thin:@16.24.118.79:1521/EFEAT
+        driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    # 서버
+        username: ENC(SSK5kYn8L6Pm9+tOy+ynccMJEq0/PExy)
+        password: ENC(dMYcarz3FFh4qNg3bBJAue0Pro8oDHSC)
+    # 로컬
+#        username: ENC(iUoze4eQsiv+TOj94uyttxri4mlkIms4)
+#        password: ENC(HWvEbXEyPY3GaOwAs/3Kd7rQQr7n173r)
+      batch:
+       jdbc-url: jdbc:mysql://16.88.248.68:3306/nbefmct?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+       username: efmc_dml
+       password: Nacf12#$
+       driver-class-name: com.mysql.cj.jdbc.Driver
+      config:
+        activate:
+          on-profile: mysql
+      
+  # mybatis 사용을 위한 설정        
+mybatis:
+  config-location: classpath:/mybatis-config.xml
+  type-aliases-package: com.nb.edop.dto
+  mapper-locations: classpath:mapper/**/*.xml
+  configuration:
+    default-fetch-size: 100
+    map-underscore-to-camel-case: true
+    default-statement-timeout: 3000
+
+    
+# management.endpoints.web.exposure.include : Actuator Open URI 지정
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" #health,status,refresh,env,loggers
+ 
+# Logging 설정       
+logging: 
+  level: 
+    root: INFO
+#    '[org.springframework]': INFO
+#    '[com.zaxxer.hikari]': INFO
+#    '[org.mybatis.spring.mapper]': ERROR
+#    '[org.mybatis]': INFO
+    
+        
+# Eureka client 관련 설정
+eureka:
+  instance:
+    preferIpAddress: true
+    lease-renewal-interval-in-seconds: 300   # Service Registry Interval Time(1초)
+    lease-expiration-duration-in-seconds: 300  # Service Registry Duration Time(2초)
+  
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:  
+#      defaultZone: http://127.0.0.1:8711/eureka # 로컬 테스트시 사용
+      defaultZone: http://CLTSOSSFWService3.apps.internal:8080/eureka/  # TAS 배포 후 사용
+    
+    # Service Registry Cache Interval Time(3초)
+    registry-fetch-interval-seconds: 300
+    disable-delta: true  
+
+midas:
+   domain-name: tdomain
+   application-name: MSAgent02
+   service-meta:
+    # MCI Call API에서 사용하는 Domain Name
+    mdomain:
+      # MCI Call API에서 사용하는 Applicaiton Name
+      mci:
+        service-handler: MCIServiceHandler
+        service-lists:
+          # MCI Call API에서 사용하는 Service 명
+          MciService1:
+            address: "http://16.88.120.137:9209"
+#            address: "http://16.88.120.71:9209"
+#            address: "http://16.24.114.42:9201"
+            path: /
+            
+            #UserController (/mci1) 의 경우
+            common-header: java.util.LinkedHashMap
+            output-type: java.util.LinkedHashMap
+            timeout: 3000
+            retry-count: 0
+            retry-delay: 3000
+
+#      kafka:
+#        service-handler: KafkaHandler
+#        service-lists:
+#          PublishService:
+#            api: producer
+#            topic: exam
+#          SubscribeService:
+#            api: consumer
+#            topic: exam  
+
+
+# Error Message 다국어 설정
+nb.common:
+  exception:
+    code:
+      EACO00001:
+        ko: 죄송합니다. 전산시스템 사정으로 서비스가 불가하오니 잠시 후 다시 이용하시거나 자세한 사항은 가까운 영업점 또는 고객센터로 문의하시기 바랍니다.
+        en: Sorry.
+      # 나중에 아래의 채널에러코드는 사용하지 않을 예정
+      ERR_500_0001:
+        ko: 채널 오류입니다.
+        en: Channel Error.
+      EACO00002:
+        ko: 죄송합니다. 전산시스템 사정으로 서비스가 불가하오니 잠시 후 다시 이용하시거나 자세한 사항은 가까운 영업점 또는 고객센터로 문의하시기 바랍니다.
+        en: Sorry.
+  image-log:
+    async-yn: y

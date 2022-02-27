@@ -55,7 +55,7 @@
       schemaName=""
       tableName=""/>
   <dto:dtoField
-      array=""
+      array="2"
       columnName=""
       comments=""
       decimal="-1"

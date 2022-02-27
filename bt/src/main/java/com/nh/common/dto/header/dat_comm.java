@@ -1,13 +1,17 @@
 package com.nh.common.dto.header;
 
+import com.tmax.superspring.dto.DataObject;
+
 
 @javax.annotation.Generated(
 	value = "com.tmaxsoft.sts4.codegen.dto.DtoGenerator",
-	date= "21. 11. 8. 오전 11:16",
+	date= "22. 2. 28. 오전 8:37",
 	comments = "dat_comm"
 )
-public class dat_comm
+public class dat_comm extends DataObject
 {
+    private static final long serialVersionUID= 1L;
+    
     private String iop_dsc = new String();
     
     public String getIop_dsc() {
@@ -72,6 +76,24 @@ public class dat_comm
     	} else {
     		this.tgrm_data_len = tgrm_data_len;
     	}
+    }
+    
+    public Object clone() {
+    	dat_comm copyObj = new dat_comm();
+    	copyObj.clone(this);
+    	return copyObj;
+    }
+    
+    public void clone(DataObject _dat_comm){
+    	if(this == _dat_comm)
+    		return;
+    		
+    	dat_comm __dat_comm = (dat_comm) _dat_comm;
+    	this.setIop_dsc(__dat_comm.getIop_dsc());
+    	this.setScreen_id(__dat_comm.getScreen_id());
+    	this.setData_hdr_dtlc(__dat_comm.getData_hdr_dtlc());
+    	this.setData_hdr_pranm(__dat_comm.getData_hdr_pranm());
+    	this.setTgrm_data_len(__dat_comm.getTgrm_data_len());
     }
 }
 
