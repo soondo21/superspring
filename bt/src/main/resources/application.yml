@@ -1,6 +1,13 @@
 # Server 포트를 지정한다.
 server:
-  port: 80021
+  port: 8080
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-type: PKCS12
+    key-store-password: tmax123!
+    key-alias: spring
+  http2:
+    enabled: true
 
 # jasypt.encryptor.bean : 프로퍼티 암복호화 Bean 설정
 # jasypt.encryptor.password : 프로퍼티 암복호화 KEY 설정 (설정 값에 따라 암복호화문이 달라지므로 변경에 유의할 것)
@@ -32,18 +39,18 @@ spring:
     - optional:configserver:http://cltsossfwservice.apps.pas.nhbank.test.nonghyup.com/SCC
     
   # Spring Boot Admin 관련 설정  
-  boot:
-    admin:
-      client:
-        # Spring Boot Admin URL
-        url:
-        - http://cltsossfwservice.apps.pas.nhbank.test.nonghyup.com/SBA
-        instance:
-          # service-rul 은 개발자의 요청 URL 입니다.
-          # port는 application.yml 상단에 server 포트와 일치해야 합니다.
-          service-url: http://127.0.0.1:8002
-        username: admin
-        password: admin
+#  boot:
+#    admin:
+#      client:
+#        # Spring Boot Admin URL
+#        url:
+#        - http://cltsossfwservice.apps.pas.nhbank.test.nonghyup.com/SBA
+#        instance:
+#          # service-rul 은 개발자의 요청 URL 입니다.
+#          # port는 application.yml 상단에 server 포트와 일치해야 합니다.
+#          service-url: http://127.0.0.1:8002
+#        username: admin
+#        password: admin
       
   # Spring Boot 에서 이미 생성한 Bean을 재정의 할 수 있는지 여부      
   main:
@@ -128,35 +135,36 @@ spring:
 #    url: jdbc:log4jdbc:oracle:thin:@16.24.118.79:1521/EFEAT
 #    username: EFED_DML
 #    password: 2^zL6mM.wH
-  datasource:
-    hikari:
-      efed:
-        jdbc-url: jdbc:log4jdbc:oracle:thin:@16.24.118.79:1521/EFEAT
-        driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    # 서버
-        username: ENC(SSK5kYn8L6Pm9+tOy+ynccMJEq0/PExy)
-        password: ENC(dMYcarz3FFh4qNg3bBJAue0Pro8oDHSC)
-    # 로컬
-#        username: ENC(iUoze4eQsiv+TOj94uyttxri4mlkIms4)
-#        password: ENC(HWvEbXEyPY3GaOwAs/3Kd7rQQr7n173r)
-      batch:
-       jdbc-url: jdbc:mysql://16.88.248.68:3306/nbefmct?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
-       username: efmc_dml
-       password: Nacf12#$
-       driver-class-name: com.mysql.cj.jdbc.Driver
-      config:
-        activate:
-          on-profile: mysql
+
+#  datasource:
+#    hikari:
+#      efed:
+#        jdbc-url: jdbc:log4jdbc:oracle:thin:@16.24.118.79:1521/EFEAT
+#        driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+#    # 서버
+#        username: ENC(SSK5kYn8L6Pm9+tOy+ynccMJEq0/PExy)
+#        password: ENC(dMYcarz3FFh4qNg3bBJAue0Pro8oDHSC)
+#    # 로컬
+##        username: ENC(iUoze4eQsiv+TOj94uyttxri4mlkIms4)
+##        password: ENC(HWvEbXEyPY3GaOwAs/3Kd7rQQr7n173r)
+#      batch:
+#       jdbc-url: jdbc:mysql://16.88.248.68:3306/nbefmct?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+#       username: efmc_dml
+#       password: Nacf12#$
+#       driver-class-name: com.mysql.cj.jdbc.Driver
+#      config:
+#        activate:
+#          on-profile: mysql
       
   # mybatis 사용을 위한 설정        
-mybatis:
-  config-location: classpath:/mybatis-config.xml
-  type-aliases-package: com.nb.edop.dto
-  mapper-locations: classpath:mapper/**/*.xml
-  configuration:
-    default-fetch-size: 100
-    map-underscore-to-camel-case: true
-    default-statement-timeout: 3000
+#mybatis:
+#  config-location: classpath:/mybatis-config.xml
+#  type-aliases-package: com.nb.edop.dto
+#  mapper-locations: classpath:mapper/**/*.xml
+#  configuration:
+#    default-fetch-size: 100
+#    map-underscore-to-camel-case: true
+#    default-statement-timeout: 3000
 
     
 # management.endpoints.web.exposure.include : Actuator Open URI 지정
@@ -170,6 +178,8 @@ management:
 logging: 
   level: 
     root: INFO
+    org.springframework.web.reactive.function.client.ExchangeFunctions: INFO   #Webclient의 log()를 위해 설정
+    org.hibernate.type.descriptor.sql: trace
 #    '[org.springframework]': INFO
 #    '[com.zaxxer.hikari]': INFO
 #    '[org.mybatis.spring.mapper]': ERROR

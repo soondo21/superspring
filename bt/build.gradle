@@ -54,7 +54,7 @@ dependencies {
     implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
     
     /* Spring Boot - WEB */
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+//	implementation 'org.springframework.boot:spring-boot-starter-web'
     /* Spring Boot - AOP */
 	implementation 'org.springframework.boot:spring-boot-starter-aop'
     /* Jasypt Spring Boot Starter (프로퍼티 암호화) */
@@ -68,6 +68,8 @@ dependencies {
 	implementation 'org.springframework.kafka:spring-kafka:2.6.8'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux:2.4.6'
     //implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
+    implementation group: 'com.pivovarit', name: 'throwing-function', version: '1.5.1'
+//    implementation group: 'org.projectreactor', name: 'reactor-spring', version: '1.0.1.RELEASE'
     
     /* batch */
 	implementation 'org.springframework.boot:spring-boot-starter-batch'

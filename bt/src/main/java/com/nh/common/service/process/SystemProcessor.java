@@ -22,69 +22,69 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 public class SystemProcessor {
-	
+
 	Logger logger = LoggerFactory.getLogger(SystemProcessor.class);
-	
+
 	@Autowired
 	ExceptionHandler exceptionHandler;
-	
+
 	@Autowired
 	ImageLogService imageLogService;
-	
-    public static SystemProcessor getInstance(ApplicationContext context) {
-        return (SystemProcessor) context.getBean("systemProcessor");
-    }
-    
-    // 비동기 호출
- 	@Async("threadPoolTaskExecutor")
- 	public void run(Runnable runnable) {
+
+	public static SystemProcessor getInstance(ApplicationContext context) {
+		return (SystemProcessor) context.getBean("systemProcessor");
+	}
+
+	// 비동기 호출
+	@Async("threadPoolTaskExecutor")
+	public void run(Runnable runnable) {
 // 		ImageLogService.run(runnable);
- 		runnable.run();
- 	}
-    
+		runnable.run();
+	}
+
 //    public <HeaderType, InputType> InputType preProcess(HeaderType header, InputType input) {
- 	public void preProcess(String body) {
- 		logger.info("SystemProcessor ======================> [PreProcess][IMAGE LOGGGING][BODY : {}]", body);
-    }
- 	
- 	public void preProcess(HttpServletRequest req, HDR_DIGITAL headerDto, String input) {
- 		/*
- 		 * preProcess 로직 추가해야 함.
- 		 */
- 		
- 		// ImageLogService Async Call
- 		imageLogService.run(() -> {
- 			imageLogService.preLog(req, headerDto, input);
- 		});
- 	}
-    
-//    public <HeaderType, OutputType> void postProcess(HeaderType header, OutputType input) {
-//    }
- 	public void postProcess(String body) {
- 		logger.info("SystemProcessor ======================> [PostProcess][IMAGE LOGGGING][BODY : {}]", body);
- 	}
- 	
-public void postProcess(HttpServletRequest req, HDR_DIGITAL headerDto, String input) {
-	/*
-		 * postProcess 로직 추가해야 함.
+	public void preProcess(String body) {
+		logger.info("SystemProcessor ======================> [PreProcess][IMAGE LOGGGING][BODY : {}]", body);
+	}
+
+	public void preProcess(HttpServletRequest req, HDR_DIGITAL headerDto, String input) {
+		/*
+		 * preProcess 로직 추가해야 함.
 		 */
-		
+
 		// ImageLogService Async Call
 		imageLogService.run(() -> {
 			imageLogService.preLog(req, headerDto, input);
 		});
- 	}
-    
-    public <HeaderType, InputType> void errorProcess(HeaderType header, InputType input, Throwable t) {
-        StringWriter sw = new StringWriter();
-        t.printStackTrace(new PrintWriter(sw));
-        String exceptionAsString = sw.toString();
-    }
-    
-    public DataObject errorProcess(Throwable t, String langCd) {
-    	return exceptionHandler.exceptionHandle(t, langCd);
-    }
-    
+	}
+
+//    public <HeaderType, OutputType> void postProcess(HeaderType header, OutputType input) {
+//    }
+	public void postProcess(String body) {
+		logger.info("SystemProcessor ======================> [PostProcess][IMAGE LOGGGING][BODY : {}]", body);
+	}
+
+	public void postProcess(HttpServletRequest req, HDR_DIGITAL headerDto, String input) {
+		/*
+		 * postProcess 로직 추가해야 함.
+		 */
+
+		// ImageLogService Async Call
+		imageLogService.run(() -> {
+			imageLogService.postLog(req, headerDto, input);
+		});
+	}
+
+	public <HeaderType, InputType> void errorProcess(HeaderType header, InputType input, Throwable t) {
+		StringWriter sw = new StringWriter();
+		t.printStackTrace(new PrintWriter(sw));
+		String exceptionAsString = sw.toString();
+	}
+
+	public DataObject errorProcess(Throwable t, String langCd) {
+		return exceptionHandler.exceptionHandle(t, langCd);
+	}
+
 //    public <HeaderType, InputType> ErrorObject errorProcess(HeaderType header, InputType input, Throwable t) {
 //        StringWriter sw = new StringWriter();
 //        t.printStackTrace(new PrintWriter(sw));
